@@ -81,7 +81,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      15 min read
+      17 min read
     
 </span></p>
 
@@ -1566,8 +1566,19 @@ Instead, we have to <code>apply</code> operations row-by-row, not using the colu
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="3.-Custom-made-date-classes">3. Custom made date classes<a class="anchor-link" href="#3.-Custom-made-date-classes"> </a></h2><p>The best custom-made date class I've found is this <code>FlexiDate</code>-inspired one <a href="https://github.com/okfn/datautil/blob/master/datautil/date.py">here</a>.</p>
-<p>TODO: Overview</p>
+<h2 id="3.-Custom-made-date-classes">3. Custom made date classes<a class="anchor-link" href="#3.-Custom-made-date-classes"> </a></h2><p>The best custom-made date class I've found is this <code>FlexiDate</code>-inspired one <a href="https://github.com/okfn/datautil/blob/master/datautil/date.py">here</a> (which was in turn inspired by <a href="https://rufuspollock.com/2009/06/18/flexible-dates-in-python/">this</a>. Someone else wrote some tests for it <a href="https://github.com/datopian/flexidate/blob/master/flexidate/test_flexidate.py">here</a> that I found useful to work out what the intended usage was.</p>
+<p>It's a custom date format that supports BC dates as well as "imprecise" dates, e.g. you can specify dates as "ca. 1905" or "BC 41?" (to mean in the 410s BC). That sounds pretty exciting for historical research, especially since it still supports sorting.</p>
+<p>Now, right off the bat, there are a few issues:</p>
+<ul>
+<li>FlexiDate was written in Python 2.x, so the code just doesn't work because Python itself has changed.<ul>
+<li><code>unicode</code> has been renamed to <code>str</code></li>
+<li>By default, is parsed day-first which differs from Numpy/Pandas so I brought it in line to parse month-first</li>
+<li><code>dateutil.parser.parser._parse</code> now returns a tuple instead of just the parsing result</li>
+</ul>
+</li>
+<li><code>dateutil.parser</code> has a quirk where if the input is only a two-digit year, it assumes you must be talking about the second half of the 20th century or the first half of the 21st century. This isn't helpful when dealing with dates from 99BC to 99AD. I feel like I should just replace that parser with custom parsing.</li>
+</ul>
+<p>I'm expecting to find more issues as I keep digging. For now I've moved a copy of <code>FlexiDate</code> <a href="https://github.com/Wolololf/fast-blog/tree/master/_notebooks/modules/flexidate.py">here</a> for me to work on solving some of the incompatibilities. It's a work-in-progress, I'll iron out some of the issues and address some of the TODOs and write another post when it's ready. I'm tempted to replace the fuzzy parser with a basic ISO parser.</p>
 
 </div>
 </div>
@@ -1587,7 +1598,24 @@ Instead, we have to <code>apply</code> operations row-by-row, not using the colu
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Example code for creating BC and AD times</span>
+
+<span class="c1"># Via parsing</span>
+<span class="n">ad_date_fd</span> <span class="o">=</span> <span class="n">fd</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;2020-01-02&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ad_date_fd</span><span class="p">)</span>
+
+<span class="n">bc_date_fd</span> <span class="o">=</span> <span class="n">fd</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;-0400-01-02&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bc_date_fd</span><span class="p">)</span>
+
+<span class="c1"># Constructor</span>
+<span class="n">constructor_test</span> <span class="o">=</span> <span class="n">fd</span><span class="o">.</span><span class="n">FlexiDate</span><span class="p">(</span><span class="n">year</span><span class="o">=-</span><span class="mi">123</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">constructor_test</span><span class="p">)</span>
+
+<span class="n">bc_test</span> <span class="o">=</span> <span class="n">fd</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;44 BC&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bc_test</span><span class="p">)</span>
+
+<span class="n">bc_test</span> <span class="o">=</span> <span class="n">fd</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;144 BC&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bc_test</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1595,6 +1623,24 @@ Instead, we have to <code>apply</code> operations row-by-row, not using the colu
 </div>
 </p>
     </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2020-01-02
+-0400-01-02
+-0123-05-06
+-2044
+-0144
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     
 
