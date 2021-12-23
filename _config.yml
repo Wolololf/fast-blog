@@ -7,7 +7,7 @@
 # https://learnxinyminutes.com/docs/yaml/
 
 title: Wolf's blog
-description: Game dev by day, python by night
+description: Game dev, python enthusiast, and professional rubber duck
 github_username: Wolololf
 # you can comment the below line out if your repo name is not different than your baseurl
 github_repo: "fast-blog"
@@ -37,10 +37,10 @@ url: "https://Wolololf.github.io" # the base hostname & protocol for your site, 
 baseurl: "/fast-blog" # the subpath of your site, e.g. "/blog".
 
 # Github and twitter are optional:
-#minima:
-#  social_links:
-#    twitter: fastdotai
-#    github: fastai
+minima:
+  social_links:
+    linkedin: wolfgangneumayer
+    github: Wolololf
 
 # Set this to true to get LaTeX math equation support
 use_math: 
