@@ -4,23 +4,23 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>BC dates in Python | Wolf’s blog</title>
+<title>BC dates in Python - Part 1 - Numpy/Pandas | Wolf’s blog</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="BC dates in Python" />
+<meta property="og:title" content="BC dates in Python - Part 1 - Numpy/Pandas" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Several approaches to expressing BC dates in Python" />
-<meta property="og:description" content="Several approaches to expressing BC dates in Python" />
-<link rel="canonical" href="https://wolololf.github.io/fast-blog/datascience/history/python/2021/12/23/bc_dates_in_python.html" />
-<meta property="og:url" content="https://wolololf.github.io/fast-blog/datascience/history/python/2021/12/23/bc_dates_in_python.html" />
+<meta name="description" content="An approach for expressing BC dates in Python using Numpy and Pandas" />
+<meta property="og:description" content="An approach for expressing BC dates in Python using Numpy and Pandas" />
+<link rel="canonical" href="https://wolololf.github.io/fast-blog/datascience/history/python/numpy/pandas/time/2021/12/23/bc_dates_in_python_part_1.html" />
+<meta property="og:url" content="https://wolololf.github.io/fast-blog/datascience/history/python/numpy/pandas/time/2021/12/23/bc_dates_in_python_part_1.html" />
 <meta property="og:site_name" content="Wolf’s blog" />
 <meta property="og:image" content="https://wolololf.github.io/fast-blog/images/placeholder.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-12-23T00:00:00-06:00" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta property="twitter:image" content="https://wolololf.github.io/fast-blog/images/placeholder.png" />
-<meta property="twitter:title" content="BC dates in Python" />
+<meta property="twitter:title" content="BC dates in Python - Part 1 - Numpy/Pandas" />
 <script type="application/ld+json">
-{"url":"https://wolololf.github.io/fast-blog/datascience/history/python/2021/12/23/bc_dates_in_python.html","@type":"BlogPosting","headline":"BC dates in Python","dateModified":"2021-12-23T00:00:00-06:00","datePublished":"2021-12-23T00:00:00-06:00","image":"https://wolololf.github.io/fast-blog/images/placeholder.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://wolololf.github.io/fast-blog/datascience/history/python/2021/12/23/bc_dates_in_python.html"},"description":"Several approaches to expressing BC dates in Python","@context":"https://schema.org"}</script>
+{"url":"https://wolololf.github.io/fast-blog/datascience/history/python/numpy/pandas/time/2021/12/23/bc_dates_in_python_part_1.html","@type":"BlogPosting","headline":"BC dates in Python - Part 1 - Numpy/Pandas","dateModified":"2021-12-23T00:00:00-06:00","datePublished":"2021-12-23T00:00:00-06:00","image":"https://wolololf.github.io/fast-blog/images/placeholder.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://wolololf.github.io/fast-blog/datascience/history/python/numpy/pandas/time/2021/12/23/bc_dates_in_python_part_1.html"},"description":"An approach for expressing BC dates in Python using Numpy and Pandas","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/fast-blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://wolololf.github.io/fast-blog/feed.xml" title="Wolf's blog" /><link rel="shortcut icon" type="image/x-icon" href="/fast-blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -75,13 +75,13 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">BC dates in Python</h1><p class="page-description">Several approaches to expressing BC dates in Python</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-12-23T00:00:00-06:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">BC dates in Python - Part 1 - Numpy/Pandas</h1><p class="page-description">An approach for expressing BC dates in Python using Numpy and Pandas</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-12-23T00:00:00-06:00" itemprop="datePublished">
         Dec 23, 2021
       </time>
        • <span class="read-time" title="Estimated read time">
     
     
-      18 min read
+      11 min read
     
 </span></p>
 
@@ -95,6 +95,15 @@ window.onload = wrap_img;
         &nbsp;
       
         <a class="category-tags-link" href="/fast-blog/categories/#python">python</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fast-blog/categories/#numpy">numpy</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fast-blog/categories/#pandas">pandas</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fast-blog/categories/#time">time</a>
         
       
       </p>
@@ -108,7 +117,7 @@ window.onload = wrap_img;
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
-# file to edit: _notebooks/2021-12-23-bc_dates_in_python.ipynb
+# file to edit: _notebooks/2021-12-23-bc_dates_in_python_part_1.ipynb
 -->
 
 <div class="container" id="notebook-container">
@@ -125,33 +134,13 @@ window.onload = wrap_img;
 <li>Getters</li>
 <li>Add/subtract time span and getting time deltas</li>
 <li>Get time span delta</li>
-<li>Lightweight enough to use in pandas</li>
+<li>Lightweight objects</li>
+<li>Useable in pandas?</li>
 </ul>
 
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Imports</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="1.-Data-science-libraries">1. Data science libraries<a class="anchor-link" href="#1.-Data-science-libraries"> </a></h2><h3 id="Numpy---datetime64-+-timedelta64">Numpy - datetime64 + timedelta64<a class="anchor-link" href="#Numpy---datetime64-+-timedelta64"> </a></h3><p>Numpy's <a href="https://numpy.org/doc/stable/reference/arrays.datetime.html"><code>datetime64</code> and <code>timedelta64</code></a> extends Python's base <code>datetime</code>/<code>timedelta</code> from 32 to 64 bit and also adds some extra functionality.</p>
@@ -196,11 +185,11 @@ window.onload = wrap_img;
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Example code for creating BC and AD times</span>
-<span class="n">ad_date_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s2">&quot;2020-01-02T03:04:05&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ad_date_np</span><span class="p">)</span>
+<span class="n">ad_date</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s2">&quot;2020-01-02T03:04:05&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ad_date</span><span class="p">)</span>
 
-<span class="n">bc_date_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s2">&quot;-00400-01-02T03:04:05&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">bc_date_np</span><span class="p">)</span>
+<span class="n">bc_date</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s2">&quot;-00400-01-02T03:04:05&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bc_date</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -290,7 +279,8 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cal</span> <span class="o">=</span> <span class="n">dt2cal</span><span class="p">(</span><span class="n">bc_date_np</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">bc_date</span><span class="p">)</span>
+<span class="n">cal</span> <span class="o">=</span> <span class="n">dt2cal</span><span class="p">(</span><span class="n">bc_date</span><span class="p">)</span>
 <span class="n">cal</span>
 </pre></div>
 
@@ -301,6 +291,14 @@ window.onload = wrap_img;
     </details>
 <div class="output_wrapper">
 <div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-400-01-02T03:04:05
+</pre>
+</div>
+</div>
 
 <div class="output_area">
 
@@ -327,7 +325,7 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">dt2calarray</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">dt2cal_columns</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert array of datetime64 to a calendar array of year, month, day, hour,</span>
 <span class="sd">    minute, seconds, microsecond with these quantites indexed on the last axis.</span>
@@ -339,7 +337,7 @@ window.onload = wrap_img;
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    cal : uint32 array (..., 7)</span>
+<span class="sd">    cal : int32 array (..., 7)</span>
 <span class="sd">        calendar array with last axis representing year, month, day, hour,</span>
 <span class="sd">        minute, second, microsecond</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -350,7 +348,7 @@ window.onload = wrap_img;
     <span class="n">Y</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;M8[</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="s2">&quot;YMDhms&quot;</span><span class="p">]</span>
     <span class="n">out</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1970</span> <span class="c1"># Gregorian year</span>
     <span class="n">out</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">M</span> <span class="o">-</span> <span class="n">Y</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="c1"># month</span>
-    <span class="n">out</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">D</span> <span class="o">-</span> <span class="n">M</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="c1"># dat</span>
+    <span class="n">out</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">D</span> <span class="o">-</span> <span class="n">M</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="c1"># day</span>
     <span class="n">out</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dt</span> <span class="o">-</span> <span class="n">D</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;m8[h]&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="c1"># hour</span>
     <span class="n">out</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dt</span> <span class="o">-</span> <span class="n">h</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;m8[m]&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="c1"># minute</span>
     <span class="n">out</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dt</span> <span class="o">-</span> <span class="n">m</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;m8[s]&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="c1"># second</span>
@@ -375,8 +373,10 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dates_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">bc_date_np</span><span class="p">,</span> <span class="n">ad_date_np</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;datetime64&#39;</span><span class="p">)</span>
-<span class="n">cal_arr</span> <span class="o">=</span> <span class="n">dt2calarray</span><span class="p">(</span><span class="n">dates_np</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">bc_date</span><span class="p">,</span> <span class="n">ad_date</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;datetime64&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span>
+
+<span class="n">cal_arr</span> <span class="o">=</span> <span class="n">dt2cal_columns</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span>
 <span class="n">cal_arr</span>
 </pre></div>
 
@@ -387,6 +387,14 @@ window.onload = wrap_img;
     </details>
 <div class="output_wrapper">
 <div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;-400-01-02T03:04:05&#39; &#39;2020-01-02T03:04:05&#39;]
+</pre>
+</div>
+</div>
 
 <div class="output_area">
 
@@ -422,17 +430,17 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">delta_np</span> <span class="o">=</span> <span class="n">ad_date_np</span> <span class="o">-</span> <span class="n">bc_date_np</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">delta_np</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">delta_np</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;timedelta64[D]&quot;</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">delta_np</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;timedelta64[Y]&quot;</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">delta</span> <span class="o">=</span> <span class="n">ad_date</span> <span class="o">-</span> <span class="n">bc_date</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">delta</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;timedelta64[D]&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">delta</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;timedelta64[Y]&quot;</span><span class="p">))</span>
 
-<span class="n">new_delta_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">new_delta_np</span><span class="p">)</span>
+<span class="n">new_delta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">new_delta</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">delta_np</span> <span class="o">-</span> <span class="n">new_delta_np</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">delta</span> <span class="o">-</span> <span class="n">new_delta</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">ad_date_np</span> <span class="o">+</span> <span class="n">new_delta_np</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ad_date</span> <span class="o">+</span> <span class="n">new_delta</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1066,11 +1074,124 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Pandas:-Getters">Pandas: Getters<a class="anchor-link" href="#Pandas:-Getters"> </a></h4><p><code>Timestamp</code> and <code>DatetimeIndex</code> have a great selection of component getters (as described <a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#time-date-components">here</a>. Sadly, we can't use any of them since we can't use <code>Timestamp</code>/<code>DatetimeIndex</code>...</p>
-<p>The best we can do is use the getters defined <a href="#numpy-getters">above</a> as a starting point and write per-component extractor utilities instead of returning the full array. I'll leave this as an exercise to the reader ;-)</p>
+<p>The best we can do is use the getters defined <a href="#numpy-getters">above</a> as a starting point and write per-component extractor utility that we can then apply to each row to get a new column.</p>
 
 </div>
 </div>
 </div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_time_component</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">comp</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract a time component (year, month, day, hour, minute, seconds, microsecond) from datetime64.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dt : datetime64</span>
+<span class="sd">        datetime to extract from</span>
+<span class="sd">    comp: string</span>
+<span class="sd">        time component to extract</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    res : int32</span>
+<span class="sd">        extracted time component</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">dt2cal</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;ms&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">comp</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    
+    <span class="k">return</span> <span class="n">arr</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;date&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s1">&#39;-400-01-02T03:04:05&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s1">&#39;2020-06-07T08:09:10&#39;</span><span class="p">)],</span>
+                   <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]})</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">get_time_component</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="s1">&#39;y&#39;</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>date</th>
+      <th>value</th>
+      <th>year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-400-01-02T03:04:05</td>
+      <td>2</td>
+      <td>-400</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2020-06-07T08:09:10</td>
+      <td>3</td>
+      <td>2020</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Pandas:-Time-spans">Pandas: Time spans<a class="anchor-link" href="#Pandas:-Time-spans"> </a></h3><p>One would think that if you have a working column of <code>datetime64</code> objects and try to apply <code>timedelta64</code> operations to the whole column, it would work. However, Pandas helpfully attempts to convert the column to <code>Timestamps</code> before applying the operation, which of course fails since our data is outside the <code>Timestamp</code> limits.
@@ -1109,56 +1230,6 @@ Instead, we have to <code>apply</code> operations row-by-row, not using the colu
 </div>
 </p>
     </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>date</th>
-      <th>value</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>-500-01-01T21:04:05</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1920-06-08T02:09:10</td>
-      <td>3</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     
 
@@ -1166,548 +1237,6 @@ Instead, we have to <code>apply</code> operations row-by-row, not using the colu
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion"> </a></h3><p>You can make Pandas work with Numpy's 64-bit time classes, it just needs some workarounds and a careful approach to keep Pandas from accidentally attempting an automatic conversion. Pandas usually adds a lot of utility to extend Numpy's time handling, but since they're all tied into range-limited classes, we can't use most of them.</p>
 <p>Some articles that discuss the advantages of Pandas' time handling can be found <a href="https://jakevdp.github.io/PythonDataScienceHandbook/03.11-working-with-time-series.html">here</a> and <a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html">here</a>, just so you know what you're missing out on.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.-Scientific-libraries">2. Scientific libraries<a class="anchor-link" href="#2.-Scientific-libraries"> </a></h2><p>It looks like there aren't a whole lot of historians using Python, but who know who else uses BC dates? Astronomers! There appears to be quite a selection of scientific libraries that deal with dates outside the default Python date range.</p>
-<h3 id="Astropy"><a href="https://www.astropy.org/">Astropy</a><a class="anchor-link" href="#Astropy"> </a></h3><p>Astropy's <a href="https://docs.astropy.org/en/stable/api/astropy.time.Time.html">Time</a> module does the job. It supports a wide variety of time scales, formats and precision that are handy in general, plus some highly astronomy specific functionality such as <code>earth_rotation_angle</code> and <code>light_travel_time</code>. The <a href="https://docs.astropy.org/en/stable/time/">documentation</a> does a good job explaining how to create and work with <code>Time</code>.</p>
-<p>This is an incredibly powerful library, and the documentation rocks. The <code>Time</code> object supports common operations such as creating, modifying and printing dates and time spans.</p>
-<p>One downside is that it has a lot of functionality you likely won't need, so it looks intimidating and confusing at first glance. While it looks like this added functionality would also bloat the object, this isn't a problem in practice. In addition to taking a string as input, <code>Time</code> also takes an <code>ndarray</code> of strings, and can be interacted with like an array. This means that effectively, you only need to define your time format and such once for the <code>Time</code> object, and the individual times can then be accessed by index.</p>
-
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Imports</span>
-<span class="kn">from</span> <span class="nn">astropy.time</span> <span class="kn">import</span> <span class="n">Time</span><span class="p">,</span> <span class="n">TimeDelta</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Astropy:-Creating-times-BC/AD">Astropy: Creating times BC/AD<a class="anchor-link" href="#Astropy:-Creating-times-BC/AD"> </a></h4><p>One caveat is that we shouldn't use the standard <a href="https://docs.astropy.org/en/stable/api/astropy.time.TimeISOT.html#astropy.time.TimeISOT">ISO/ISOT format</a>, e.g. <code>2020-01-02T03:04:05</code>. The ISO format only works for AD dates! Instead, we should use the <a href="https://docs.astropy.org/en/stable/api/astropy.time.TimeFITS.html#astropy.time.TimeFITS">FITS format</a>, e.g. <code>-00400-01-02T03:04:05</code>. FITS is an extension to the ISO format that expands the year range to five digits, and supports BC dates. Be aware that for negative dates, you need to pad it out with leading zeroes, or you'll get a parsing exception!</p>
-
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description" open="">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Example code for creating BC and AD times</span>
-<span class="n">ad_date_astro</span> <span class="o">=</span> <span class="n">Time</span><span class="p">(</span><span class="s2">&quot;2020-01-01T01:23:45&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;fits&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="s1">&#39;utc&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ad_date_astro</span><span class="p">)</span>
-
-<span class="n">bc_date_astro</span> <span class="o">=</span> <span class="n">Time</span><span class="p">(</span><span class="s2">&quot;-00400-01-01T01:23:45&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;fits&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="s1">&#39;utc&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">bc_date_astro</span><span class="p">)</span>
-
-<span class="n">dates_astro</span> <span class="o">=</span> <span class="n">Time</span><span class="p">([</span><span class="s2">&quot;-00400-01-01T01:23:45&quot;</span><span class="p">,</span> <span class="s2">&quot;2020-01-01T01:23:45&quot;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;fits&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="s1">&#39;utc&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">dates_astro</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">dates_astro</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>2020-01-01T01:23:45.000
--00400-01-01T01:23:45.000
-[&#39;-00400-01-01T01:23:45.000&#39; &#39;+02020-01-01T01:23:45.000&#39;]
--00400-01-01T01:23:45.000
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/usr/local/anaconda3/lib/python3.8/site-packages/erfa/core.py:154: ErfaWarning: ERFA function &#34;dtf2d&#34; yielded 1 of &#34;dubious year (Note 6)&#34;
-  warnings.warn(&#39;ERFA function &#34;{}&#34; yielded {}&#39;.format(func_name, wmsg),
-/usr/local/anaconda3/lib/python3.8/site-packages/erfa/core.py:154: ErfaWarning: ERFA function &#34;d2dtf&#34; yielded 1 of &#34;dubious year (Note 5)&#34;
-  warnings.warn(&#39;ERFA function &#34;{}&#34; yielded {}&#39;.format(func_name, wmsg),
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The above warning seems to be benign and from well within Astropy, nothing to do for us here.</p>
-<p>Side note: You can get your time data in a different format by using <code>.isot</code>, <code>.unix</code>. Note that you can print time in formats that wouldn't support parsing it!</p>
-
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description" open="">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">ad_date_astro</span><span class="o">.</span><span class="n">unix</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">bc_date_astro</span><span class="o">.</span><span class="n">fits</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">bc_date_astro</span><span class="o">.</span><span class="n">isot</span><span class="p">)</span>
-
-<span class="c1"># This line would fail with a ValueError: &quot;Input values did not match the format class isot&quot;</span>
-<span class="c1">#bc_date_2 = Time(bc_date.isot, format=&#39;isot&#39;, scale=&#39;utc&#39;)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>1577841825.0
--00400-01-01T01:23:45.000
--400-01-01T01:23:45.000
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Astropy:-Getters">Astropy: Getters<a class="anchor-link" href="#Astropy:-Getters"> </a></h4><p>The <code>Time</code> class doesn't have an easy way to extract common attributes such as year, month or seconds. It does, however, support <code>strftime</code> and provides an implementation based on Python's <code>time.strftime</code>. This means we can define our own utility functions to extract the relevant components and parse them into integers for later use.</p>
-<p>Sadly, this doesn't work for BC dates since <code>strftime</code> internally assumes dates in the <code>ISO</code> format for some reason.</p>
-
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description" open="">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Getters</span>
-<span class="k">def</span> <span class="nf">extract_year</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y&#39;</span><span class="p">))</span>
-
-<span class="n">extract_year</span><span class="p">(</span><span class="n">ad_date_astro</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>2020</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>There is always the option of writing our own function to extract time components from the source string, and I might revisit this section later on to do just that. We'd have to use the FITS representation and parse the date string ourselves which shouldn't be too involved.</p>
-
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#TODO: Write time component extraction function based on FITS string representation</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Astropy:-Time-spans">Astropy: Time spans<a class="anchor-link" href="#Astropy:-Time-spans"> </a></h3><p>Astropy comes with a <code>TimeDelta</code> class that supports all common time span operations, such as add/subtract and new instance creation. The most common constructors are from seconds or from <code>datetime.timedelta</code>.</p>
-
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description" open="">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">delta_astro</span> <span class="o">=</span> <span class="n">ad_date_astro</span> <span class="o">-</span> <span class="n">bc_date_astro</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">delta_astro</span><span class="o">.</span><span class="n">datetime</span><span class="p">)</span>
-
-<span class="n">new_delta_astro</span> <span class="o">=</span> <span class="n">TimeDelta</span><span class="p">(</span><span class="mi">123456789</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;sec&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">new_delta_astro</span><span class="o">.</span><span class="n">datetime</span><span class="p">)</span>
-
-<span class="n">new_delta_astro</span> <span class="o">=</span> <span class="n">TimeDelta</span><span class="p">(</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">123456</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;datetime&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">new_delta_astro</span><span class="o">.</span><span class="n">datetime</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">((</span><span class="n">delta_astro</span> <span class="o">-</span> <span class="n">new_delta_astro</span><span class="p">)</span><span class="o">.</span><span class="n">datetime</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ad_date_astro</span> <span class="o">+</span> <span class="n">new_delta_astro</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>883887 days, 0:00:37
-1428 days, 21:33:09
-123456 days, 0:00:00
-760431 days, 0:00:37
-2358-01-05T01:23:45.000
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/usr/local/anaconda3/lib/python3.8/site-packages/erfa/core.py:154: ErfaWarning: ERFA function &#34;utctai&#34; yielded 1 of &#34;dubious year (Note 3)&#34;
-  warnings.warn(&#39;ERFA function &#34;{}&#34; yielded {}&#39;.format(func_name, wmsg),
-/usr/local/anaconda3/lib/python3.8/site-packages/erfa/core.py:154: ErfaWarning: ERFA function &#34;taiutc&#34; yielded 1 of &#34;dubious year (Note 4)&#34;
-  warnings.warn(&#39;ERFA function &#34;{}&#34; yielded {}&#39;.format(func_name, wmsg),
-/usr/local/anaconda3/lib/python3.8/site-packages/erfa/core.py:154: ErfaWarning: ERFA function &#34;d2dtf&#34; yielded 1 of &#34;dubious year (Note 5)&#34;
-  warnings.warn(&#39;ERFA function &#34;{}&#34; yielded {}&#39;.format(func_name, wmsg),
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion"> </a></h3><p>Astropy's time module offers a lot more functionality than we need which makes its objects clunky and its API quite complex. This is offset by having the option to keep an array of datetimes in the <code>Time</code> object itself, same as with <code>TimeDelta</code>, which lets us manipulate them as we would with <code>ndarrays</code>. The downside is that this wouldn't work well with libraries such as Pandas.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Skyfield"><a href="https://rhodesmill.org/skyfield/time.html">Skyfield</a><a class="anchor-link" href="#Skyfield"> </a></h3><p>TODO: Overview</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Skyfield:-Creating-times-BC/AD">Skyfield: Creating times BC/AD<a class="anchor-link" href="#Skyfield:-Creating-times-BC/AD"> </a></h4>
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Skyfield:-Getters">Skyfield: Getters<a class="anchor-link" href="#Skyfield:-Getters"> </a></h4>
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Skyfield:-Time-spans">Skyfield: Time spans<a class="anchor-link" href="#Skyfield:-Time-spans"> </a></h4>
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion"> </a></h4><p>TODO</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="SpiceyPy"><a href="https://github.com/AndrewAnnex/SpiceyPy">SpiceyPy</a><a class="anchor-link" href="#SpiceyPy"> </a></h3><p>This is more of an honourable mention than anything else. SpiceyPy is a wrapper for the C-based <a href="https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/info/intrdctn.html">SPICE toolkit</a>, and it shows in it's usability and documentation. For a taste, check out this <a href="https://spiceypy.readthedocs.io/en/main/remote_sensing.html#overview">easy-to-follow tutorial</a> full of kernel installs and C-style code.</p>
-<p>It does come with time utilities, but I couldn't even figure out how to set them up, let alone use them, so maybe steer clear.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="3.-Custom-made-date-classes">3. Custom made date classes<a class="anchor-link" href="#3.-Custom-made-date-classes"> </a></h2><p>The best custom-made date class I've found is this <code>FlexiDate</code>-inspired one <a href="https://github.com/okfn/datautil/blob/master/datautil/date.py">here</a> (which was in turn inspired by <a href="https://rufuspollock.com/2009/06/18/flexible-dates-in-python/">this</a>. Someone else wrote some tests for it <a href="https://github.com/datopian/flexidate/blob/master/flexidate/test_flexidate.py">here</a> that I found useful to work out what the intended usage was.</p>
-<p>It's a custom date format that supports BC dates as well as "imprecise" dates, e.g. you can specify dates as "ca. 1905" or "BC 41?" (to mean in the 410s BC). That sounds pretty exciting for historical research, especially since it still supports sorting. It's only concerned with the date, though, so it doesn't take into account time of day, which is fine for my purposes.</p>
-<p>Now, right off the bat, there are a few issues:</p>
-<ul>
-<li>FlexiDate was written in Python 2.x, so the code just doesn't work because Python itself has changed.<ul>
-<li><code>unicode</code> has been renamed to <code>str</code></li>
-<li>By default, is parsed day-first which differs from Numpy/Pandas so I brought it in line to parse month-first</li>
-<li><code>dateutil.parser.parser._parse</code> now returns a tuple instead of just the parsing result</li>
-</ul>
-</li>
-<li><code>dateutil.parser</code> has a quirk where if the input is only a two-digit year, it assumes you must be talking about the second half of the 20th century or the first half of the 21st century. This isn't helpful when dealing with dates from 99BC to 99AD. I feel like I should just replace that parser with custom parsing.</li>
-</ul>
-<p>I'm expecting to find more issues as I keep digging. For now I've moved a copy of <code>FlexiDate</code> <a href="https://github.com/Wolololf/fast-blog/tree/master/_notebooks/modules/flexidate.py">here</a> for me to work on solving some of the incompatibilities. It's a work-in-progress, I'll iron out some of the issues and address some of the TODOs and write another post when it's ready. I'm tempted to replace the fuzzy parser with a basic ISO parser.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="FlexiDate:-Creating-times-BC/AD">FlexiDate: Creating times BC/AD<a class="anchor-link" href="#FlexiDate:-Creating-times-BC/AD"> </a></h4>
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description" open="">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Example code for creating BC and AD times</span>
-
-<span class="c1"># Via parsing</span>
-<span class="n">ad_date_fd</span> <span class="o">=</span> <span class="n">fd</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;2020-01-02&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ad_date_fd</span><span class="p">)</span>
-
-<span class="n">bc_date_fd</span> <span class="o">=</span> <span class="n">fd</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;-0400-01-02&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">bc_date_fd</span><span class="p">)</span>
-
-<span class="c1"># Constructor</span>
-<span class="n">constructor_test</span> <span class="o">=</span> <span class="n">fd</span><span class="o">.</span><span class="n">FlexiDate</span><span class="p">(</span><span class="n">year</span><span class="o">=-</span><span class="mi">123</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">constructor_test</span><span class="p">)</span>
-
-<span class="n">bc_test</span> <span class="o">=</span> <span class="n">fd</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;44 BC&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">bc_test</span><span class="p">)</span>
-
-<span class="n">bc_test</span> <span class="o">=</span> <span class="n">fd</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;144 BC&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">bc_test</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>2020-01-02
--0400-01-02
--0123-05-06
--2044
--0144
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="FlexiDate:-Getters">FlexiDate: Getters<a class="anchor-link" href="#FlexiDate:-Getters"> </a></h4><p>Getters are easy in <code>FlexiDate</code> since its internal representation has attributes for year, month and day. It doesn't support time of day, so there are no getters for that.</p>
-
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description" open="">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">bc_date_fd</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">bc_date_fd</span><span class="o">.</span><span class="n">month</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">bc_date_fd</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>-0400
-01
-02
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="FlexiDate:-Time-spans">FlexiDate: Time spans<a class="anchor-link" href="#FlexiDate:-Time-spans"> </a></h4><p>Another major downside to <code>FlexiDate</code> is that it doesn't support time spans. There is plenty of code on the internet showing how to do time span calculations, I'm sure they could be adjusted to work with <code>FlexiDate</code>. A bigger challenge is the uncertainty aspect: How would subtracting two uncertain dates work? How would you add/subtract uncertain time spans?</p>
-<p>I think subtraction of uncertain dates would need to yield a min-max range of time spans, e.g. <code>202?-199?</code> has a range of <code>[21, 39]</code>. Operating on two ranges would just operate on the min/max, e.g. <code>[21, 39] + [49, 61] = [70, 100]</code> and <code>[49, 61] - [21, 39] = [10, 40]</code>. Combining a <code>FlexiSpan</code> with a <code>FlexiDate</code> would return a <code>FlexiDate</code> if there was no uncertainty, or a tuple of <code>FlexiDates</code> for min/max results based on uncertainty in the date or time span.</p>
-<p>I think this could work, but this is just an outline, there's work to be done.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="FlexiDate-and-Pandas">FlexiDate and Pandas<a class="anchor-link" href="#FlexiDate-and-Pandas"> </a></h4><p>I propose that <code>FlexiDate</code> would interact with Pandas in a similar way as Numpy's <code>datetime64</code> and <code>timedelta64</code>: Custom parsing functions for <code>date</code> columns or multiple date component columns</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion"> </a></h4><p>I love the idea of uncertainty in dates.</p>
 
 </div>
 </div>
@@ -1724,7 +1253,7 @@ Instead, we have to <code>apply</code> operations row-by-row, not using the colu
         theme="github-light"
         crossorigin="anonymous"
         async>
-</script><a class="u-url" href="/fast-blog/datascience/history/python/2021/12/23/bc_dates_in_python.html" hidden></a>
+</script><a class="u-url" href="/fast-blog/datascience/history/python/numpy/pandas/time/2021/12/23/bc_dates_in_python_part_1.html" hidden></a>
 </article>
 
       </div>
