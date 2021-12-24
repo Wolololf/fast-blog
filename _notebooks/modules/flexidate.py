@@ -203,6 +203,8 @@ class PythonDateParser(object):
     def parse(self, date):
         return FlexiDate(date.year, date.month, date.day)
 
+# TODO: Don't use this fuzzy parsing, just use datetime.parse and handle negative years yourself
+# Personally, I can live without the fuzzy parsing.
 try:
     import dateutil.parser
     dateutil_parser = dateutil.parser.parser()
@@ -222,7 +224,7 @@ class DateutilDateParser(DateParserBase):
 
         # various normalizations
         # TODO: call .lower() first
-        # TODO: Handle BCE
+        # TODO: Remove this
         date = date.replace('B.C.', 'BC')
         date = date.replace('A.D.', 'AD')
 
@@ -237,6 +239,8 @@ class DateutilDateParser(DateParserBase):
         
         # BC seems to mess up parser
         date = date.replace('BC', '')
+        
+        # TODO: Remove circa/ca. notation, use ? instead
 
         # deal with circa: expressed as [c|ca|cca|circ|circa] with or without an appended period
         # and with or without a space, followed by a date
@@ -261,25 +265,24 @@ class DateutilDateParser(DateParserBase):
             # so instead join the match groups from circa_match that are not none
             date = ''.join(list(el for el in circa_match.groups() if el))
 
-        # deal with p1980 (what does this mean? it can appear in
-        # field 008 of MARC records
+        # deal with p1980 (what does this mean? it can appear in field 008 of MARC records)
+        # TODO: Remove this
         p_match = re.match("^p(\d+)", date)
         if p_match:
             date = date[1:]
 
+        # TODO: How do I deal with an uncertain value that's not a range?
         # Deal with uncertainty: '1985?'
         uncertainty_match = re.match('([0-9xX]{4})\?', date)
         if uncertainty_match:
             # remove the ?
-            # TODO: Will the ? always be at the end?
             date = date[:-1]
             
             qualifiers.append('Uncertainty')
         
-        
-        # TODO: Just use isoparse instead to avoid the two-digit parsing weirdness?
-        # We lose the fuzzy parsing of using month names, but I can live with that
-        # If we do drop the fuzzy parsing, then clean up all letters, leading +/- signs and ?s
+        # TODO: Just use datetime.parse instead to avoid the two-digit parsing weirdness?
+        # We lose the fuzzy parsing of using month names, but I can live with that.
+        # If we do drop the fuzzy parsing, then clean up all letters, leading +/- signs and ?s here
 
         # Parse the numbers intelligently
         # do not use std parser function as creates lots of default data
