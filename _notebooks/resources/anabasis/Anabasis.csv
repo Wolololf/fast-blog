@@ -1,0 +1,12 @@
+latitude,longitude,start_day,end_day,event_type,event_name,event_description,bibliography
+37.941111,27.341944,0,0,city,Ephesus,Xenophon departs from Ephesus to join the expedition of Cyrus,
+38.488333,28.040278,7,30,city,Sardes,Xenophon arrives in Sardes where Cyrus is gathering his forces,
+37.7878,29.2615,34,41,city,Colossae,,1.2.6
+36.973263,36.120503,145,148,city,Issos,,1.4.1
+36.494167,36.024167,150,157,city,Myriandos,"Cyrus' forces arrive at Myriandos, at the border to Persia proper",1.4.6
+35.8366,38.3026,169,174,city,Thapsacos,,1.4.11
+33.32157871,44.07438804,213,213,battle,Cunaxa,"The Hellenes fight alongside Cyrus and emerge victorious, but Cyrus dies in the fighting",1.7.20; 1.10.1-1.10.18
+33.185613,44.702767,251,251,city,Opis,,2.4.25
+36.335572,43.13713,268,268,city,Mespila,,3.4.10
+39.979722,41.675556,375,375,city,Gymnias,,4.7.19
+41.005,39.7225,400,430,city,Trapezus,"The Ten Thousand arrive at the black sea coast, rest, recover and attempt to obtain passage back to mainland Greece",4.8.22
